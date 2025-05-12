@@ -2,6 +2,7 @@ from django.urls import path
 from . import views  # Importing views from this app
 
 urlpatterns = [
-    path('', views.expense_list, name='expense_list'),  # This URL will show the list of expenses
+    path('', views.expense_list, name='expense_list'),
+    path('edit/<int:id>/', views.edit_expense, name='edit_expense'),
+    path('delete/<int:id>/', views.delete_expense, name='delete_expense'),
 ]
-
