@@ -1,7 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
 </head>
 <body>
     <h1>Expense Tracker</h1>
@@ -12,6 +14,17 @@
         {{ form.as_p }}
         <button type="submit">Add Expense</button>
     </form>
+
+    {% if form.errors %}
+        <div style="color: red;">
+            <h3>Form Errors:</h3>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li>{{ field }}: {{ errors|join:", " }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
     <hr>
 

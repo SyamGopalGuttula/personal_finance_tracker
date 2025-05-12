@@ -1,4 +1,4 @@
-# Python and Django
+# Python-related
 __pycache__/
 *.pyc
 *.pyo
@@ -8,11 +8,14 @@ __pycache__/
 venv/
 env/
 
-# Database
+# SQLite Database
 db.sqlite3
 
-# Django Secrets
-*.env
+# Static Files (collected)
+staticfiles/
 
-# VS Code Settings (optional)
+# Django Secrets and Environment Variables
+.env
+
+# VS Code settings (optional)
 .vscode/
