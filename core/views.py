@@ -12,30 +12,23 @@ def expense_list(request):
     end_date = request.GET.get('end_date')
     category = request.GET.get('category')
 
-    print("Initial Expenses:", expenses)  # Debug Line
-    print("Selected Category:", category)  # Debug Line
-
     if query and query.lower() != "none":
         expenses = expenses.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
-        print("After Search Filter:", expenses)  # Debug Line
 
     if start_date:
         expenses = expenses.filter(date__gte=start_date)
-        print("After Start Date Filter:", expenses)  # Debug Line
 
     if end_date:
         expenses = expenses.filter(date__lte=end_date)
-        print("After End Date Filter:", expenses)  # Debug Line
 
     if category and category != "All":
         expenses = expenses.filter(category__iexact=category.strip())
-        print("After Category Filter:", expenses)  # Debug Line
+
 
     form = ExpenseForm()
     categories = Expense.objects.values_list('category', flat=True).distinct()
-    print("Available Categories:", categories)  # Debug Line
 
     return render(request, 'core/expense_list.html', {
         'expenses': expenses,
