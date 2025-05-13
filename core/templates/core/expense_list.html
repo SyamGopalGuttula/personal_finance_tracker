@@ -97,4 +97,11 @@
         {% endfor %}
     </table>
 </body>
+<script>
+    document.querySelectorAll('.filter-container input, .filter-container select').forEach(element => {
+        element.addEventListener('change', function() {
+            document.querySelector('.filter-container form').submit();
+        });
+    });
+</script>
 </html>
