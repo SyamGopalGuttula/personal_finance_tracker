@@ -8,6 +8,21 @@
 <body>
     <h1>Expense Tracker</h1>
 
+    <h2>Filter Expenses</h2>
+    <form method="GET">
+        <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+        <input type="date" name="start_date" value="{{ start_date }}">
+        <input type="date" name="end_date" value="{{ end_date }}">
+        <select name="category">
+            <option value="All">All Categories</option>
+            {% for cat in categories %}
+                <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+        <a href="/">Reset</a>
+    </form>
+    <hr>
     <h2>Add New Expense</h2>
     <form method="POST">
         {% csrf_token %}
