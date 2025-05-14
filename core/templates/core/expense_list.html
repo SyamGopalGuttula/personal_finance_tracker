@@ -41,6 +41,31 @@
 <body>
     <h1>Expense Tracker</h1>
 
+    <h2>Expense Analytics</h2>
+    <div class="analytics">
+        <p><strong>Total Expenses:</strong> ${{ total_expenses }}</p>
+
+        <h3>Expense Breakdown by Category</h3>
+        <ul>
+            {% for item in expense_breakdown %}
+                <li>{{ item.category }}: ${{ item.total }}</li>
+            {% empty %}
+                <li>No expenses found in this filter.</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Top 5 Expenses</h3>
+        <ul>
+            {% for expense in top_expenses %}
+                <li>{{ expense.title }} - ${{ expense.amount }} ({{ expense.category }})</li>
+            {% empty %}
+                <li>No expenses found in this filter.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <hr>
+
     <div class="filter-container">
         <form method="GET">
             <input type="text" name="q" placeholder="Search..." value="{{ query }}">

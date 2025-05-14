@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Expense  # Importing the Expense model
 from .forms import ExpenseForm  # Importing the ExpenseForm
-from django.db.models import Q  
+from django.db.models import Q, Sum  
 
 from django.db.models import Q
 
@@ -26,9 +26,13 @@ def expense_list(request):
     if category and category != "All":
         expenses = expenses.filter(category__iexact=category.strip())
 
-
     form = ExpenseForm()
     categories = Expense.objects.values_list('category', flat=True).distinct()
+
+    # Summarization and Analytics
+    total_expenses = expenses.aggregate(total=Sum('amount'))['total'] or 0
+    expense_breakdown = expenses.values('category').annotate(total=Sum('amount')).order_by('-total')
+    top_expenses = expenses.order_by('-amount')[:5]
 
     return render(request, 'core/expense_list.html', {
         'expenses': expenses,
@@ -37,7 +41,10 @@ def expense_list(request):
         'selected_category': category,
         'query': query,
         'start_date': start_date,
-        'end_date': end_date
+        'end_date': end_date,
+        'total_expenses': total_expenses,
+        'expense_breakdown': expense_breakdown,
+        'top_expenses': top_expenses
     })
 
 

@@ -56,3 +56,23 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.analytics {
+    background-color: #f4f4f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.analytics h3 {
+    margin-top: 10px;
+}
+
+.analytics ul {
+    list-style: none;
+    padding: 0;
+}
+
+.analytics li {
+    margin: 5px 0;
+}
