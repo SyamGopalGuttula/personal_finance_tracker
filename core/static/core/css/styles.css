@@ -76,3 +76,17 @@ button:hover {
 .analytics li {
     margin: 5px 0;
 }
+
+.download-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+}

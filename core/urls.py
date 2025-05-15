@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.expense_list, name='expense_list'),
     path('edit/<int:id>/', views.edit_expense, name='edit_expense'),
     path('delete/<int:id>/', views.delete_expense, name='delete_expense'),
+    path('download-analytics/', views.download_analytics_csv, name='download_analytics'),
 ]
