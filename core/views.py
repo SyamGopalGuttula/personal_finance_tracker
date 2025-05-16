@@ -84,7 +84,7 @@ def download_analytics_csv(request):
 
 @login_required
 def expense_list(request):
-    expenses = Expense.objects.all()
+    expenses = Expense.objects.filter(user=request.user)  # Only show logged-in user's expenses
     query = request.GET.get('q') or ""
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
