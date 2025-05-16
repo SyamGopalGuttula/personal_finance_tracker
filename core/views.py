@@ -4,8 +4,34 @@ from .forms import ExpenseForm  # Importing the ExpenseForm
 from django.db.models import Q, Sum  
 from django.http import HttpResponse  # Add this line
 import csv
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from django.db.models import Q
+
+def register_user(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Username already exists.")
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, "Email already in use.")
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password1)
+                user.save()
+                messages.success(request, "Account created successfully. You can now log in.")
+                return redirect('login')
+        else:
+            messages.error(request, "Passwords do not match.")
+    
+    return render(request, 'core/register.html')
 
 def download_analytics_csv(request):
     expenses = Expense.objects.all()
@@ -56,7 +82,7 @@ def download_analytics_csv(request):
 
     return response
 
-
+@login_required
 def expense_list(request):
     expenses = Expense.objects.all()
     query = request.GET.get('q') or ""
